@@ -35,7 +35,7 @@ ssize_t v9fs_fid_xattr_get(struct p9_fid *fid, const char *name,
 		return retval;
 	}
 	if (attr_size > buffer_size) {
-		if (!buffer_size) /* request to get the attr_size */
+		if (!buffer_size && attr_size <= (u64) SSIZE_MAX) /* request to get the attr_size */
 			retval = attr_size;
 		else
 			retval = -ERANGE;
